@@ -34,9 +34,12 @@
 			<h3 class="h3"><strong>{product.Title}</strong></h3>
 		</header>
 		<div class="border border-surface-400 rounded-md w-full p-4">
-			{#each product.properties || [] as { Title, Type, values }, i}
+			{#each product.properties || [] as { Title, Type, Required, values }, i}
 				<label class="label" for={Title}>
 					{Title}
+					{#if !Required}
+						(optional)
+					{/if}
 				</label>
 				{#if Type === 'Text' && values?.length}
 					<div class="flex flex-wrap gap-2">
@@ -58,9 +61,8 @@
 						{#each values || [] as { Color }}
 							<button
 								type="button"
-								class="w-10 rounded-full aspect-square grid place-items-center border transform hover:scale-105"
+								class="w-10 rounded-full aspect-square grid place-items-center border border-surface-400 transform hover:scale-105"
 								style:background-color={Color}
-								style:border-color={getContrast(Color)}
 								style:color={getContrast(Color)}
 								on:click={() => ($form.properties[Title] = Color)}
 							>
@@ -95,8 +97,8 @@
 				{/if}
 			{/each}
 		</div>
-		<label class="label" for="quantity"> Quantity </label>
-		<div class="flex gap-2 items-center">
+		<div class="grid grid-cols-3 place-items-center">
+			<label class="label col-span-full" for="quantity"> Quantity </label>
 			<button
 				type="button"
 				class="btn-icon btn-icon-sm variant-soft-primary"
@@ -113,10 +115,10 @@
 				<Icon icon="mdi:add" />
 			</button>
 		</div>
-
 		{#if $errors.quantity}
 			<span class="text-error-400">{$errors.quantity?.join(', ')}</span>
 		{/if}
+
 		<button class="btn variant-filled-primary" use:loadingButton={{ loading: submitting }}>
 			Submit
 		</button>

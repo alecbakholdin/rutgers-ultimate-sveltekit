@@ -3,20 +3,20 @@
 
 import type { Session } from 'svelte-kit-cookie-session';
 
-interface SessionData {
+type SessionData = {
 	cartId: string;
 }
 
 // and what to do when importing types
 declare global {
-	declare namespace App {
+	namespace App {
 		interface Locals {
-			session: Session<SessionData>;
+			cartId: string;
 		}
-		interface PageData {
-			session: Session<SessionData>;
-		}
+		// interface PageData {}
 		// interface Error {}
 		// interface Platform {}
 	}
 }
+
+export {};
