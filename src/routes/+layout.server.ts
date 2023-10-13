@@ -3,8 +3,7 @@ import type { Cart } from '$lib/types/my-collections.js';
 import { readItem } from '@directus/sdk';
 
 export async function load({ locals: { cartId } }) {
-	const cart = await serverClient.request(readItem('cart', cartId, { fields: ['*.*'] })) as Cart;
 	return {
-		cart
+		cart: serverClient.request(readItem('cart', cartId, { fields: ['*.*.*'] })) as Promise<Cart>
 	};
 }

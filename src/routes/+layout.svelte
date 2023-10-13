@@ -5,7 +5,6 @@
 	import Icon from '@iconify/svelte';
 
 	onNavigate((navigation) => {
-		console.log(navigation);
 		if (!document.startViewTransition) return;
 
 		return new Promise((resolve) => {
