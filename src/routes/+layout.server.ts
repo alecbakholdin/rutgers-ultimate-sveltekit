@@ -4,6 +4,6 @@ import { readItem } from '@directus/sdk';
 
 export async function load({ locals: { cartId } }) {
 	return {
-		cart: serverClient.request(readItem('cart', cartId, { fields: ['*.*.*'] })) as Promise<Cart>
+		cart: serverClient.request(readItem('cart', cartId, { fields: ['*.*.*' as any] })) as Promise<Cart>
 	};
 }

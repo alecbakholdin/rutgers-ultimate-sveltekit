@@ -14,7 +14,7 @@
 		<h3 class="h3">Cart</h3>
 	</header>
 	<section class="p-4 flex flex-col gap-2">
-		{#each data.cart.line_items as { product, properties, quantity }, i}
+		{#each data.cart.line_items || [] as { product, properties, quantity }, i}
 			{@const propertyMap = Object.fromEntries(product.properties?.map((x) => [x.Title, x]) || [])}
 			<div class="flex gap-2">
 				<img

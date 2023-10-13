@@ -16,7 +16,7 @@
 	});
 
 	export let data;
-	$: cartQuantity = data.cart.line_items.reduce((t, { quantity }) => t + quantity, 0);
+	$: cartQuantity = data.cart?.line_items?.reduce((t, { quantity }) => t + quantity, 0) ?? 0;
 </script>
 
 <!-- App Shell -->

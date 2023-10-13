@@ -30,16 +30,15 @@ export const actions = {
 			await serverClient.request(updateItem('cart', cartId, cart));
 		} else {
 			await serverClient.request(
-				updateItem('cart', cartId, { line_items: [...cart.line_items, lineItem] })
+				updateItem('cart', cartId, { line_items: [...(cart.line_items || []), lineItem] })
 			);
 		}
 	}
 };
 
 function getMatchingLineItem(cart: Cart, lineItem: NewLineItem) {
-	const potentialMatches = cart.line_items?.filter(
-		(x) => x.properties?.length === lineItem.properties?.length
-	);
+	const potentialMatches =
+		cart.line_items?.filter((x) => x.properties?.length === lineItem.properties?.length) || [];
 	for (const match of potentialMatches) {
 		const matchProperties = match.properties || [];
 		for (const property of lineItem.properties || []) {

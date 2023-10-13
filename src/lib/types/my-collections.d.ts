@@ -1,6 +1,8 @@
 export interface DirectusCollections {
 	Product: Product[];
 	cart: Cart[];
+	order: Order[];
+	line_item: LineItem[];
 }
 
 export interface Product {
@@ -30,7 +32,7 @@ export interface ProductPropertyValue {
 
 export interface Cart {
 	id: string;
-	line_items: LineItem[];
+	line_items?: LineItem[] | null;
 }
 
 export interface LineItem {
@@ -38,6 +40,7 @@ export interface LineItem {
 	product: Product;
 	properties?: LineItemProperty[];
 	quantity: number;
+	cart_id: Cart;
 }
 export type NewLineItem = {
 	quantity: number;
@@ -48,4 +51,8 @@ export type NewLineItem = {
 export interface LineItemProperty {
 	Key: string;
 	Value: string;
+}
+
+export interface Order {
+	name: string;
 }

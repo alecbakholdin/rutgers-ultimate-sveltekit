@@ -22,16 +22,17 @@ export const actions = {
 		console.log(form.data);
 
 		const { lineItemIndex, quantity } = form.data;
-		const cart = await serverClient.request(readItem('cart', cartId));
-		if (form.data.lineItemIndex >= cart.line_items.length) {
+		const cart = await serverClient.request(readItem('cart', cartId, { fields: ['line_items'] }));
+		const lineItems: number[] = (cart.line_items as unknown as number[]) || [];
+		if (form.data.lineItemIndex >= lineItems.length) {
 			return fail(400, { form });
 		}
 
 		if (!quantity) {
-			cart.line_items.splice(lineItemIndex, 1);
+			lineItems.splice(lineItemIndex, 1);
+			await serverClient.request(updateItem('cart', cartId, cart));
 		} else {
-			cart.line_items[lineItemIndex].quantity = quantity;
+			await serverClient.request(updateItem('line_item', lineItems[lineItemIndex], { quantity }));
 		}
-		await serverClient.request(updateItem('cart', cartId, cart));
 	}
 };
