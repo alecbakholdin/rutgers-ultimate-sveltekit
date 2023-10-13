@@ -13,10 +13,9 @@
 	<header class="card-header">
 		<h3 class="h3">Cart</h3>
 	</header>
-	<section class="p-4 flex flex-col">
+	<section class="p-4 flex flex-col gap-2">
 		{#each data.cart.line_items as { product, properties, quantity }, i}
 			{@const propertyMap = Object.fromEntries(product.properties?.map((x) => [x.Title, x]) || [])}
-			<div class="w-full" />
 			<div class="flex gap-2">
 				<img
 					src={getImageUrl(product.main_image)}
@@ -38,7 +37,6 @@
 									{Value}
 								{/if}
 							</span>
-							<hr class="last:hidden" />
 						{/each}
 					</div>
 				</div>
@@ -59,6 +57,7 @@
 					</select>
 				</form>
 			</div>
+            <hr class="last:hidden"/>
 		{:else}
 			<span class="text-surface-400">No items in cart right now</span>
 		{/each}
